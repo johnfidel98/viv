@@ -43,7 +43,7 @@ We recommend converting proprietrary file formats to open standard formats via t
 `bioformats2raw` + `raw2ometiff` pipeline. Non-pyramidal datasets are also supported 
 provided the individual texture can be uploaded to the GPU (< `4096 x 4096` in pixel size).
 
-Please see the [tutorial](./tutorial/README.md) for more information.
+Please see the [tutorial](./sites/docs/tutorial/README.md) for more information.
 
 > \*We describe **Indexed OME-TIFF** in our paper as an optional enhancement to provide
 > efficient random chunk access for OME-TIFF. Our approach substantially improves chunk
@@ -102,7 +102,4 @@ The [Changesets GitHub Action](https://github.com/changesets/action) will create
 
 ## 🌎 Browser Support
 
-Viv supports both [WebGL1](https://caniuse.com/?search=webgl) and [WebGL2](https://caniuse.com/?search=webgl2) 
-contexts, to provides coverage across Safari, Firefox, Chrome, and Edge. Please
-[file an issue](https://github.com/hms-dbmi/viv/issues/new) if you find a browser
-in which Viv does not work.
+Viv supports coverage across Safari, Firefox, Chrome, and Edge. Please [file an issue](https://github.com/hms-dbmi/viv/issues/new) if you find a browser in which Viv does not work.
