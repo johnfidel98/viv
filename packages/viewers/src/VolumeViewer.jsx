@@ -1,6 +1,6 @@
-import * as React from 'react';
-import { VolumeView, getDefaultInitialViewState } from '@vivjs/views';
 import { ColorPalette3DExtensions } from '@vivjs/extensions';
+import { VolumeView, getDefaultInitialViewState } from '@vivjs/views';
+import * as React from 'react';
 
 import VivViewer from './VivViewer';
 
@@ -27,6 +27,7 @@ import VivViewer from './VivViewer';
  * @param {Array.<Object>} [props.clippingPlanes] List of math.gl [Plane](https://math.gl/modules/culling/docs/api-reference/plane) objects.
  * @param {Boolean} [props.useFixedAxis] Whether or not to fix the axis of the camera (default is true).
  * @param {Array=} extensions [deck.gl extensions](https://deck.gl/docs/developer-guide/custom-layers/layer-extensions) to add to the layers - default is AdditiveBlendExtension from ColorPalette3DExtensions.
+ * @param {Object} [props.deckProps] Additional options used when creating the DeckGL component.  See [the deck.gl docs.](https://deck.gl/docs/api-reference/core/deck#initialization-settings).  `layerFilter`, `layers`, `onViewStateChange`, `views`, `viewState`, `useDevicePixels`, and `getCursor` are already set.
  */
 
 const VolumeViewer = props => {
@@ -49,9 +50,12 @@ const VolumeViewer = props => {
     viewStates: viewStatesProp,
     clippingPlanes = [],
     useFixedAxis = true,
-    extensions = [new ColorPalette3DExtensions.AdditiveBlendExtension()]
+    extensions = [new ColorPalette3DExtensions.AdditiveBlendExtension()],
+    deckProps
   } = props;
   const volumeViewState = viewStatesProp?.find(state => state?.id === '3d');
+  // FIXME: This ignore is carried over from eslint, without description. Why ignore deps?
+  // biome-ignore lint/correctness/useExhaustiveDependencies: Carried over from eslint, without description.
   const initialViewState = React.useMemo(() => {
     if (volumeViewState) {
       return volumeViewState;
@@ -68,7 +72,6 @@ const VolumeViewer = props => {
       rotationX: 0,
       rotationOrbit: 0
     };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [loader, resolution, modelMatrix]);
   const viewStates = [volumeViewState || { ...initialViewState, id: '3d' }];
   const volumeView = new VolumeView({
@@ -103,6 +106,7 @@ const VolumeViewer = props => {
       viewStates={viewStates}
       onViewStateChange={onViewStateChange}
       useDevicePixels={false}
+      deckProps={deckProps}
     />
   ) : null;
 };
